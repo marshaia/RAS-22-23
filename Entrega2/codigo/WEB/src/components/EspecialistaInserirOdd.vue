@@ -16,8 +16,6 @@
                 </div>
             </div>
 
-
-            <HPBetCartFooter/>
         </div>
     </div>
 </template>

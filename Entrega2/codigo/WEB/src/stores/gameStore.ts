@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import {rasbetJogo, rasbetDesporto, rasbetCompeticao, rasbetResultado} from "../models/rasbetJogo"
-import {getAllAvailableGames, getAllCompetitions, getAllSports} from "../api/rasbetGETApi";
+import { rasbetJogo, rasbetDesporto, rasbetCompeticao, rasbetResultado } from "../models/rasbetJogo"
+import { getAllAvailableGames, getAllCompetitions, getAllSports, getEspecialistaGames } from "../api/rasbetGETApi";
 
 
 interface gameStore { 
@@ -12,7 +12,8 @@ interface gameStore {
     competicao: number,
     fetching: boolean,
     filtering: boolean,
-    errorMsg: string,
+    errorMsg: string, 
+    jogoEspecialista: rasbetJogo | null,
 }
 
 export const gameState = defineStore('games', {
@@ -26,7 +27,8 @@ export const gameState = defineStore('games', {
             competicao: 0,
             fetching: false,
             filtering: false,
-            errorMsg: ""
+            errorMsg: "",
+            jogoEspecialista: null,
         }
     },
 
@@ -124,6 +126,7 @@ export const gameState = defineStore('games', {
             this.gamesToShow = []
             this.desporto = 0;
             this.competicao = 0;
+
             this.allGames.forEach((game) => {
                 this.gamesToShow.push(game);
             })
@@ -170,6 +173,49 @@ export const gameState = defineStore('games', {
         },
 
 
+        getEspecialistaGames (token: string) {
+            this.allGames = new Map<number, rasbetJogo>();
+            this.fetching = true;
+
+            getEspecialistaGames(token).then(resp => {
+                if (resp.code === 200){
+                    const gameList :rasbetJogo[] = resp.data
+                    gameList.forEach((jogo) => {
+                        this.allGames.set(jogo.idjogo,jogo);
+                    })
+                }
+                else this.errorMsg = resp.errorMsg?? "";
+            })
+            
+            this.fetching = false;
+            this.showAllGames();
+        },
+
+
+        getAllGames() {
+            this.allGames = new Map<number, rasbetJogo>();
+            this.fetching = true;
+
+            getAllAvailableGames().then(resp => {
+                if (resp.code === 200){
+                    const gameList :rasbetJogo[] = resp.data
+                    gameList.forEach((jogo) => {
+                        this.allGames.set(jogo.idjogo,jogo);
+                    })
+                }
+                else this.errorMsg = resp.errorMsg?? "";
+            })
+            this.fetching = false;
+            this.showAllGames();
+        },
+        
+        editGameOdd (idGame: number) {
+            this.jogoEspecialista = this.getGame(idGame);
+        },
+
+        removeJogoEspecialista () {
+            this.jogoEspecialista = null;
+        },
 
         getEmptyGame():rasbetJogo{
             return {
@@ -185,7 +231,6 @@ export const gameState = defineStore('games', {
                 winner: "",
                 score: "",
             }
-        }
-
+        },
     }
 })

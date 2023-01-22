@@ -89,10 +89,8 @@ export const loginState = defineStore("login", {
     },
 
     getUtilizadorEncargo(){
-      if(this.loggedIn){
-        return this.user?.encargo
-      }
-      return null
+      if(this.loggedIn) return this.user?.encargo;
+      return null;
     },
 
     async editProfile (email: string, nome: string, endereco: string, telefone: number) {
@@ -195,5 +193,23 @@ export const loginState = defineStore("login", {
       });
       this.fetching = false;
     },
+
+    checkEspecialista() {
+      if (this.loggedIn) {
+        let e = this.getUtilizadorEncargo()
+        if (e) return /especialista/gi.test(e.toString());
+        else return false;
+      }
+      else return false;
+    },
+
+    checkAdmin() {
+      if (this.loggedIn) {
+        let e = this.getUtilizadorEncargo()
+        if (e) return /admin/gi.test(e.toString());
+        else return false;
+      }
+      else return false;
+    }
   },
 });

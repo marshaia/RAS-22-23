@@ -8,7 +8,8 @@
 
           <div class="relative flex flex-col flex-grow h-0 w-full">
             <div class="overflow-auto no-scrollbar my-4 space-y-4">
-              <template v-for="game in gameStore.gamesToShow" :key="game.idjogo">
+              <template v-if="gameStore.fetching"> <spiningButton class="mt-5" /> </template>
+              <template v-else v-for="game in gameStore.gamesToShow" :key="game.idjogo">
                 <HPGameBox v-bind="{idGame:game.idjogo}"/>
               </template>
             </div>
@@ -21,7 +22,9 @@
 <script setup lang="ts">
 import { gameState } from '../stores/gameStore'
 import HPGameBox from './HPGameBox.vue'
+import spiningButton from '../assets/spiningButton.vue';
 
 const gameStore = gameState()
+//gameStore.getAllGames();
 gameStore.showAllGames();
 </script>

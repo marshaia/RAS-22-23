@@ -1,9 +1,15 @@
 <template>
-  <div v-if="!checkAdmin()" class="flex items-center justify-center space-x-6 p-3">
+  <div v-if="!login.checkAdmin()" class="flex items-center justify-center space-x-6 p-3">
     <SportsSideBar class="w-1/6"/>
-    <HPGames class="w-3/6"/>
-    <HPBetCart v-if="!checkEspecialista()" class="w-2/6" />
-    <EspecialistaInserirOdd v-else-if="checkEspecialista() && login.loggedIn" class="w-2/6" />
+    <template v-if="!login.checkEspecialista()">
+      <HPGames class="w-3/6"/>
+      <HPBetCart class="w-2/6" />
+    </template>
+    <template v-else>
+      <EspecialistaGames class="w-3/6" />
+      <EspecialistaInserirOdd v-if="login.loggedIn" class="w-2/6" />
+    </template>
+    
   </div>
 
 
@@ -51,33 +57,13 @@ import SportsSideBar from '../components/HPSideBar.vue';
 import HPGames from '../components/HPGames.vue';
 import HPBetCart from '../components/HPBetCart.vue';
 import { loginState } from '../stores/loginStore'
-import { computed } from 'vue'
 import EspecialistaInserirOdd from '../components/EspecialistaInserirOdd.vue'
 import { getNumUsersOnline } from '../api/rasbetGETApi'
 import { gameState } from '../stores/gameStore'
+import EspecialistaGames from '../components/EspecialistaGames.vue';
 
 const games = gameState();
 const login = loginState(); 
-const loggedIn = computed(() => login.loggedIn);
-
-const checkEspecialista = () => {
-  if (loggedIn) {
-    let e = login.getUtilizadorEncargo()
-    if (e) return /especialista/gi.test(e.toString());
-    else return false;
-  }
-  else return false;
-}
-
-const checkAdmin = () => {
-  if (loggedIn) {
-    let e = login.getUtilizadorEncargo()
-    if (e) return /admin/gi.test(e.toString());
-    else return false;
-  }
-  else return false;
-}
-
 const numUsers = ref<number>(0);
 const numUsersOnline = () => {
   getNumUsersOnline(login.token).then((res) => {
@@ -85,5 +71,5 @@ const numUsersOnline = () => {
     return;
   })
 }
-if (checkAdmin()) numUsersOnline();
+if (login.checkAdmin()) numUsersOnline();
 </script>

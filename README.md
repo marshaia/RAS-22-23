@@ -7,7 +7,16 @@ Projeto desenvolvido no âmbito da unidade curricular Requisitos e Arquiteturas 
 #
 
 ## **Autores**:
-- [PG49995 - Anabela Pereira](https://github.com/alpereirinha)
-- [PG50002 - Fernando Lobo](https://github.com/NaNdUSL)
-- [PG50457 - Joana Maia](https://github.com/marshaia)
-- [PG50799 - Vicente Moreira](https://github.com/VicShadow)
+- [Anabela Pereira](https://github.com/alpereirinha)
+- [Fernando Lobo](https://github.com/NaNdUSL)
+- [Joana Maia](https://github.com/marshaia)
+- [Vicente Moreira](https://github.com/VicShadow)
+
+
+#
+### **Notas Obtidas em Cada Fase:**
+- Fase **1**: `18.25`
+- Fase **2**: `15.98`
+- Fase **3**: `-`
+
+**Nota Final:** `-` valores
