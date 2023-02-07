@@ -4,7 +4,7 @@ Projeto desenvolvido no âmbito da unidade curricular Requisitos e Arquiteturas 
 
 **Tema**: _Website_ de Apostas Desportivas (RASBET)
 
-#
+
 
 ## **Autores**:
 - [Anabela Pereira](https://github.com/alpereirinha)
@@ -13,10 +13,10 @@ Projeto desenvolvido no âmbito da unidade curricular Requisitos e Arquiteturas 
 - [Vicente Moreira](https://github.com/VicShadow)
 
 
-#
-### **Notas Obtidas em Cada Fase:**
-- Fase **1**: `18.25`
-- Fase **2**: `15.98`
-- Fase **3**: `-`
 
-**Nota Final:** `-` valores
+### **Notas Obtidas em Cada Fase:**
+- Fase **1**: `18`
+- Fase **2**: `16`
+- Fase **3**: `16`
+
+**Nota Final:** `17` valores
